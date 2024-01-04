@@ -26,7 +26,7 @@ function drawQuilt() {
 
 function drawSquare(x, y) {
   const color = getRandomColor();
-  const corner = Math.floor(Math.random() * 4); // Random corner index
+  const corner = Math.floor(Math.random() * 4);
 
   ctx.fillStyle = "#FFFFFF";
   ctx.beginPath();
@@ -105,5 +105,4 @@ function getRandomNumber(min, max) {
 }
 
 document.addEventListener("DOMContentLoaded", initializeQuilt);
-
 canvas.addEventListener("click", initializeQuilt);
