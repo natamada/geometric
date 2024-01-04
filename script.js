@@ -24,22 +24,69 @@ function drawQuilt() {
 }
 
 function drawSquare(x, y) {
-  const color1 = getRandomColor();
-  const color2 = getRandomColor();
+  const color = getRandomColor();
+  const corner = Math.floor(Math.random() * 4);
 
-  // Draw diagonal triangles within the square
-  ctx.fillStyle = color1;
+  ctx.fillStyle = "#FFFFFF";
   ctx.beginPath();
-  ctx.moveTo(x, y);
-  ctx.lineTo(x + squareSize, y);
-  ctx.lineTo(x, y + squareSize);
+
+  // Draw the half-white triangle in one of the corners
+  switch (corner) {
+    case 0:
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + squareSize, y);
+      ctx.lineTo(x, y + squareSize);
+      break;
+    case 1:
+      ctx.moveTo(x + squareSize, y);
+      ctx.lineTo(x + squareSize, y + squareSize);
+      ctx.lineTo(x, y + squareSize);
+      break;
+    case 2:
+      ctx.moveTo(x + squareSize, y + squareSize);
+      ctx.lineTo(x, y + squareSize);
+      ctx.lineTo(x + squareSize, y);
+      break;
+    case 3:
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y + squareSize);
+      ctx.lineTo(x + squareSize, y + squareSize);
+      break;
+    default:
+      break;
+  }
+
   ctx.fill();
 
-  ctx.fillStyle = color2;
+  // Draw the half-random color triangle in the opposite corner
+  ctx.fillStyle = color;
   ctx.beginPath();
-  ctx.moveTo(x + squareSize, y);
-  ctx.lineTo(x + squareSize, y + squareSize);
-  ctx.lineTo(x, y + squareSize);
+
+  switch (corner) {
+    case 0:
+      ctx.moveTo(x + squareSize, y + squareSize);
+      ctx.lineTo(x, y + squareSize);
+      ctx.lineTo(x + squareSize, y);
+      break;
+    case 1:
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y + squareSize);
+      ctx.lineTo(x + squareSize, y + squareSize);
+      break;
+    case 2:
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + squareSize, y);
+      ctx.lineTo(x, y + squareSize);
+      break;
+    case 3:
+      ctx.moveTo(x + squareSize, y);
+      ctx.lineTo(x + squareSize, y + squareSize);
+      ctx.lineTo(x, y + squareSize);
+      break;
+    default:
+      break;
+  }
+
   ctx.fill();
 }
 
