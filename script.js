@@ -1,11 +1,12 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const quiltSize = 320;
-let numSquares, squareSize;
+let numRows, numCols, squareSize;
 
 function initializeQuilt() {
-  numSquares = getRandomNumber(2, 6);
-  squareSize = quiltSize / numSquares;
+  numRows = getRandomNumber(5, 10); // Adjust the range as needed
+  numCols = getRandomNumber(5, 10); // Adjust the range as needed
+  squareSize = quiltSize / Math.min(numRows, numCols);
 
   canvas.width = quiltSize;
   canvas.height = quiltSize;
@@ -16,8 +17,8 @@ function initializeQuilt() {
 function drawQuilt() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let row = 0; row < numSquares; row++) {
-    for (let col = 0; col < numSquares; col++) {
+  for (let row = 0; row < numRows; row++) {
+    for (let col = 0; col < numCols; col++) {
       drawSquare(row * squareSize, col * squareSize);
     }
   }
@@ -25,7 +26,7 @@ function drawQuilt() {
 
 function drawSquare(x, y) {
   const color = getRandomColor();
-  const corner = Math.floor(Math.random() * 4);
+  const corner = Math.floor(Math.random() * 4); // Random corner index
 
   ctx.fillStyle = "#FFFFFF";
   ctx.beginPath();
