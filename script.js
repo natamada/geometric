@@ -26,7 +26,7 @@ function drawQuilt() {
 
 function drawSquare(x, y) {
   const color = getRandomColor();
-  const corner = Math.floor(Math.random() * 4);
+  const corner = Math.floor(Math.random() * 4); // Random corner index
 
   ctx.fillStyle = "#FFFFFF";
   ctx.beginPath();
@@ -59,7 +59,7 @@ function drawSquare(x, y) {
 
   ctx.fill();
 
-  // Draw the half-random color triangle in the opposite corner
+  // Draw the half-random color triangle with a curved side
   ctx.fillStyle = color;
   ctx.beginPath();
 
@@ -67,22 +67,37 @@ function drawSquare(x, y) {
     case 0:
       ctx.moveTo(x + squareSize, y + squareSize);
       ctx.lineTo(x, y + squareSize);
-      ctx.lineTo(x + squareSize, y);
+      ctx.quadraticCurveTo(
+        x + squareSize / 2,
+        y,
+        x + squareSize,
+        y + squareSize
+      ); // Curved side on the diagonal
       break;
     case 1:
       ctx.moveTo(x, y);
-      ctx.lineTo(x, y + squareSize);
-      ctx.lineTo(x + squareSize, y + squareSize);
+      ctx.lineTo(x + squareSize, y);
+      ctx.quadraticCurveTo(
+        x + squareSize,
+        y + squareSize / 2,
+        x,
+        y + squareSize
+      );
       break;
     case 2:
       ctx.moveTo(x, y);
-      ctx.lineTo(x + squareSize, y);
       ctx.lineTo(x, y + squareSize);
+      ctx.quadraticCurveTo(
+        x + squareSize / 2,
+        y + squareSize,
+        x + squareSize,
+        y
+      );
       break;
     case 3:
       ctx.moveTo(x + squareSize, y);
       ctx.lineTo(x + squareSize, y + squareSize);
-      ctx.lineTo(x, y + squareSize);
+      ctx.quadraticCurveTo(x, y + squareSize / 2, x, y);
       break;
     default:
       break;
@@ -105,4 +120,5 @@ function getRandomNumber(min, max) {
 }
 
 document.addEventListener("DOMContentLoaded", initializeQuilt);
+
 canvas.addEventListener("click", initializeQuilt);
