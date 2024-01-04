@@ -1,76 +1,45 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 const quiltSize = 320;
-const squareSize = quiltSize / 4;
+let numSquares, squareSize;
 
-canvas.width = quiltSize;
-canvas.height = quiltSize;
+function initializeQuilt() {
+  numSquares = getRandomNumber(2, 6);
+  squareSize = quiltSize / numSquares;
+
+  canvas.width = quiltSize;
+  canvas.height = quiltSize;
+
+  drawQuilt();
+}
 
 function drawQuilt() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (let row = 0; row < 4; row++) {
-    for (let col = 0; col < 4; col++) {
+  for (let row = 0; row < numSquares; row++) {
+    for (let col = 0; col < numSquares; col++) {
       drawSquare(row * squareSize, col * squareSize);
     }
   }
 }
 
 function drawSquare(x, y) {
-  const color = getRandomColor();
-  ctx.fillStyle = "#FFFFFF";
-  ctx.fillRect(x, y, squareSize, squareSize);
+  const color1 = getRandomColor();
+  const color2 = getRandomColor();
 
-  // Draw a half circle in a random corner of the square
-  const corner = Math.floor(Math.random() * 4);
-  drawHalfCircle(x, y, corner, color);
-}
-
-function drawHalfCircle(x, y, corner, color) {
+  // Draw diagonal triangles within the square
+  ctx.fillStyle = color1;
   ctx.beginPath();
-  ctx.fillStyle = color;
+  ctx.moveTo(x, y);
+  ctx.lineTo(x + squareSize, y);
+  ctx.lineTo(x, y + squareSize);
+  ctx.fill();
 
-  switch (corner) {
-    case 0:
-      ctx.arc(
-        x + squareSize / 2,
-        y + squareSize / 2,
-        squareSize / 2,
-        0,
-        Math.PI
-      );
-      break;
-    case 1:
-      ctx.arc(
-        x + squareSize / 2,
-        y + squareSize / 2,
-        squareSize / 2,
-        Math.PI / 2,
-        Math.PI * 1.5
-      );
-      break;
-    case 2:
-      ctx.arc(
-        x + squareSize / 2,
-        y + squareSize / 2,
-        squareSize / 2,
-        -Math.PI / 2,
-        Math.PI / 2
-      );
-      break;
-    case 3:
-      ctx.arc(
-        x + squareSize / 2,
-        y + squareSize / 2,
-        squareSize / 2,
-        Math.PI,
-        Math.PI * 2
-      );
-      break;
-    default:
-      break;
-  }
-
+  ctx.fillStyle = color2;
+  ctx.beginPath();
+  ctx.moveTo(x + squareSize, y);
+  ctx.lineTo(x + squareSize, y + squareSize);
+  ctx.lineTo(x, y + squareSize);
   ctx.fill();
 }
 
@@ -83,6 +52,10 @@ function getRandomColor() {
   return color;
 }
 
-document.addEventListener("DOMContentLoaded", drawQuilt);
+function getRandomNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-canvas.addEventListener("click", drawQuilt);
+document.addEventListener("DOMContentLoaded", initializeQuilt);
+
+canvas.addEventListener("click", initializeQuilt);
