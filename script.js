@@ -4,8 +4,8 @@ const quiltSize = 320;
 let numRows, numCols, squareSize;
 
 function initializeQuilt() {
-  numRows = getRandomNumber(5, 10); // Adjust the range as needed
-  numCols = getRandomNumber(5, 10); // Adjust the range as needed
+  numRows = getRandomNumber(5, 10);
+  numCols = getRandomNumber(5, 10);
   squareSize = quiltSize / Math.min(numRows, numCols);
 
   canvas.width = quiltSize;
@@ -26,7 +26,7 @@ function drawQuilt() {
 
 function drawSquare(x, y) {
   const color = getRandomColor();
-  const corner = Math.floor(Math.random() * 4); // Random corner index
+  const corner = Math.floor(Math.random() * 4);
 
   ctx.fillStyle = "#FFFFFF";
   ctx.beginPath();
@@ -72,7 +72,7 @@ function drawSquare(x, y) {
         y,
         x + squareSize,
         y + squareSize
-      ); // Curved side on the diagonal
+      );
       break;
     case 1:
       ctx.moveTo(x, y);
